@@ -35,6 +35,15 @@ top_path = [
     [frame_top_depth, 0],
 ];
 
+for (path = [bottom_path, top_path]) {
+    for (i = [0:2]) {
+        width = abs(path[i+1][0] - path[i][0]) 
+        height = path[i+1][1] - path[i][1]
+        translate(path[i])
+            cuboid(width, height)
+    }
+}
+
 convex_offset_extrude(frame_width, bottom=os_chamfer(frame_chamfer, frame_chamfer), top=os_chamfer(frame_chamfer, frame_chamfer)) {
     stroke(bottom_path, width=frame_thickness);
     stroke(top_path, width=frame_thickness);
