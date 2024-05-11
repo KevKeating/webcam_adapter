@@ -8,7 +8,8 @@ INCHES_TO_MM = 25.4;
 EXTRA = 0.1;
 
 frame_thickness = 2;
-frame_width = 50;
+frame_chamfer = 0.5;
+frame_width = 55;
 frame_bottom_back_length = 30;
 frame_top_depth = 20;
 frame_top_back_angle = 15;
@@ -34,7 +35,7 @@ top_path = [
     [frame_top_depth, 0],
 ];
 
-linear_extrude(frame_width) {
+convex_offset_extrude(frame_width, bottom=os_chamfer(frame_chamfer, frame_chamfer), top=os_chamfer(frame_chamfer, frame_chamfer)) {
     stroke(bottom_path, width=frame_thickness);
     stroke(top_path, width=frame_thickness);
 }
