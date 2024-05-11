@@ -17,10 +17,10 @@ monitor_top_bezel = 7;
 // how much space should we leave between the bottom of the stand and the bottom
 // of the bezel
 monitor_top_clearance = 3;
-monitor_depth = 25; // TODO: remeasure
-monitor_back_angle = 115; // TODO: remeasure
+monitor_depth = (1 + 1/64) * INCHES_TO_MM;
+monitor_back_angle = 112.5;
 // how deep is the front part of the webcam's stand
-webcam_stand_depth = 13; // TODO: remeasure
+webcam_stand_depth = 0.5 * INCHES_TO_MM;
 extra_space_for_webcam_stand = 2;
 frame_top_height = webcam_stand_depth + extra_space_for_webcam_stand;
 
