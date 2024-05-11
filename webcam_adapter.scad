@@ -24,20 +24,29 @@ webcam_stand_depth = 13; // TODO: remeasure
 extra_space_for_webcam_stand = 2;
 frame_top_height = webcam_stand_depth + extra_space_for_webcam_stand;
 
-bottom_path = [
-    [frame_bottom_back_length * cos(monitor_back_angle), -frame_bottom_back_length * sin(monitor_back_angle)],
-    [0, 0],
-    [monitor_depth + frame_thickness, 0],
-    [monitor_depth + frame_thickness, -monitor_top_bezel - monitor_top_clearance],
-];
-top_path = [
-    [0, 0],
-    [-frame_top_height * tan(frame_top_back_angle), frame_top_height],
-    [frame_top_depth, frame_top_height],
-    [frame_top_depth, 0],
-];
+module extrude_shape(width, thickness) {
+    bottom_path = [
+        [frame_bottom_back_length * cos(monitor_back_angle), -frame_bottom_back_length * sin(monitor_back_angle)],
+        [0, 0],
+        [monitor_depth + frame_thickness, 0],
+        [monitor_depth + frame_thickness, -monitor_top_bezel - monitor_top_clearance],
+    ];
+    top_path = [
+        [0, 0],
+        [-frame_top_height * tan(frame_top_back_angle), frame_top_height],
+        [frame_top_depth, frame_top_height],
+        [frame_top_depth, 0],
+    ];
 
-linear_extrude(frame_width) {
-    stroke(bottom_path, width=frame_thickness);
-    stroke(top_path, width=frame_thickness);
+    linear_extrude(width) {
+        stroke(bottom_path, width=thickness);
+        stroke(top_path, width=thickness);
+    }
+}
+
+frame_bezel = 0.5;
+hull() {
+    up(frame_bezel)
+        extrude_shape(frame_width - 2 * frame_bezel, frame_thickness);
+    extrude_shape(frame_width, frame_thickness - 2 * frame_bezel);
 }
